@@ -14,8 +14,6 @@ namespace P07.JogoForca
 
           #endregion
 
-          #region Método Principal;
-
           static void Main(string[] args)
           {
                do
@@ -47,7 +45,7 @@ namespace P07.JogoForca
 
                     do
                     {
-                         GerarForca(palavraAleatoria, letrasForca);
+                         GerarForca(palavraAleatoria, letrasForca, letrasDigitadas);
 
                          PegarLetra();
 
@@ -69,8 +67,6 @@ namespace P07.JogoForca
 
                } while (true);
           }
-
-          #endregion
 
           #region Funções Gerais;
 
@@ -111,17 +107,6 @@ namespace P07.JogoForca
                Console.WriteLine("\nQual o seu chute? ");
                chute = Convert.ToChar(Console.ReadLine().ToUpper());
 
-               string comAcentos = "ÄÅÁÂÀÃäáâàãÉÊËÈéêëèÍÎÏÌíîïìÖÓÔÒÕöóôòõÜÚÛüúûùÇç";
-               string semAcentos = "AAAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUuuuuCc";
-
-               string chutet = Convert.ToString(chute);
-
-               for (int i = 0; i < comAcentos.Length; i++)
-               {
-                    chutet = chutet.Replace(comAcentos[i].ToString(), semAcentos[i].ToString());
-               }
-
-               chute = Convert.ToChar(chutet);
           }
 
           private static void DefinirTracosPalavra(string palavraAleatoria, char[] letrasPalavraAleatoria, char[] letrasForca)
@@ -134,7 +119,7 @@ namespace P07.JogoForca
                     }
                     else
                     {
-                         letrasForca[i] = '-';
+                         letrasForca[i] = '_';
                     }
                }
                Console.Clear();
@@ -148,6 +133,7 @@ namespace P07.JogoForca
                {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Você venceu, parabéns!");
+                    Console.WriteLine($"A palavra era: {palavraAleatoria}");
                     Console.ReadLine();
                     Console.ResetColor();
                }
@@ -156,6 +142,7 @@ namespace P07.JogoForca
                {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Você perdeu, mais sorte na próxima vez!");
+                    Console.WriteLine($"A palavra era: {palavraAleatoria}");
                     Console.ReadLine();
                     Console.ResetColor();
                }
@@ -171,7 +158,7 @@ namespace P07.JogoForca
                letrasDigitadas = new char[30];
           }
 
-          private static void GerarForca(string palavraAleatoria, char[] letrasForca)
+          private static void GerarForca(string palavraAleatoria, char[] letrasForca, char[] letrasDigitadas)
           {
                Console.Clear();
                Console.WriteLine(" -----------");
@@ -184,6 +171,8 @@ namespace P07.JogoForca
                Console.WriteLine(" |        ");
                Console.WriteLine(" |        ");
                Console.WriteLine("_|___        \n");
+
+               Console.SetCursorPosition(6, Console.CursorTop - 2);
 
                for (int i = 0; i < palavraAleatoria.Length; i++)
                {
